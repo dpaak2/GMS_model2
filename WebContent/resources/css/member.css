@@ -1,0 +1,117 @@
+@CHARSET "UTF-8";
+
+@IMPORT "common.css";
+/* index css */
+#index-tab {
+	width: 80%;
+	height:50%;
+	margin: 0 auto;
+	border: 2px solid blue;
+}
+
+.index-ul {
+	width: 300px;
+	list-style: none;
+}
+
+.index-ul>li {
+	border: 1px solid black;
+	text-align: center;
+	
+}
+
+.index-ul>li>a {
+	text-decoration: none;
+}
+#index-tab-tr>th {
+	
+	border: 1px solid black;
+	text-align: center;
+}
+
+#index-tab-tr>td {
+	height:25px;
+	padding:3%;
+	border: 1px solid black;
+	text-align: center;
+}
+/*member_list*/
+#member_list_tab{ border width: 90%;margin: 0 auto;}
+#member_list_tab th{
+	 background-color: yellow; border-bottom: 1px solid black; height: 40px;
+}
+#member_list_tab td{
+	border-bottom: 1px solid #808080; height:40px; text-align: center;
+}
+/*login css  */
+#login-button_submit{
+	width: 300px;
+	padding-top: 5px; 
+	padding-bottom: 5px; 
+	font-size: 30px;
+	background-color: #3c89bc;
+	color: white;;
+}
+#login-button_cancle{
+	width: 300px;
+	padding-top: 5px; 
+	padding-bottom: 5px; 
+	font-size: 30px;
+	background-color: #ce4a4a;
+	color: white;
+}
+#login_id{
+	color: blue;
+	font-size: 30px;
+}
+
+#login_pass{
+	color: blue;
+	font-size: 30px;	
+}
+
+/*join css*/
+#join_id{
+	width: 100px; 
+	display: inline-block;
+}
+#join_pass{
+	width: 100px; 
+	display: inline-block;
+}
+#join_name{
+	width: 100px;
+	display: inline-block;
+}
+#join_birth{
+	width: 100px; 
+	display: inline-block;
+}
+#join_email{
+	width: 100px; 
+	display: inline-block;
+}
+#join_yes_button{
+	background-color: #3c89bc; color: white; font-size: 15px; width: 130px;
+}
+#join_no_button{
+	background-color: #ce4a4a; color: white; font-size: 15px; width: 130px;
+}
+
+/*member search*/
+#member_search_box{	width: 300px; margin: 0 auto;}
+
+/*member detail*/
+#member_detail_tab{
+	width: 70%; border: 1px solid #808080; margin: 0 auto;
+}
+#member_detail_tab td{
+	border: 1px solid #808080; height: 30px;
+}
+#member_img{
+	width: 100px;
+	height: 100px;
+}
+.member_detail_td{
+	width: 30%;
+}

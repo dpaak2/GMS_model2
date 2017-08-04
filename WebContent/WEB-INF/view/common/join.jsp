@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="member_head.jsp" %>
+<%@ include file="../member/member_head.jsp" %>
 <div id="container" class="margin-center" style="width: 500px;">
 <img src="<%=request.getContextPath()%>/WEB-INF/resources/img/joinimg.jpg" alt="" />
 <form id="join_form" action="">
 <fieldset>
 <legend>JOIN INFORMATION</legend>
-<h3>회원가입 </h3>
+<h3>학생 정보</h3>
 <span id="join_id">ID: </span>
 <input name="id" type="text" placeholder="ID" /><br />
 <span id="join_pass">PASSWORD: </span>

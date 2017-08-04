@@ -1,16 +1,10 @@
 package com.gms.web.serviceImpl;
-
-
 import java.util.List;
 import java.util.Map;
-
 import com.gms.web.DAO.MemberDAO;
 import com.gms.web.DAOImpl.MemberDAOImpl;
 import com.gms.web.domain.MemberBean;
 import com.gms.web.service.MemberService;
-
-
-
 
 public class MemberServiceImpl implements MemberService {
 	MemberBean member;
@@ -26,7 +20,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	private MemberServiceImpl(){}
+	
 
+	@Override
+	public String login(MemberBean bean) {
+		System.out.println("MemberServiceImpl login entered!!!!");
+	    MemberBean m = findById(bean.getId());
+		return (m!=null)?(bean.getPw().equals(m.getPw()))?"main":"login_fail":"join";
+	
+	}
+	
 	@Override
 	public String addMember(MemberBean bean) {
 		String result="";
@@ -95,5 +98,6 @@ public class MemberServiceImpl implements MemberService {
 		// count--;
 		return removeResult;
 	}
+
 
 }

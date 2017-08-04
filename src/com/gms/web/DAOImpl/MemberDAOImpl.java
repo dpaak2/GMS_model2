@@ -2,6 +2,7 @@ package com.gms.web.DAOImpl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,24 +85,23 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberBean selectById(String id) {
-		MemberBean bean = new MemberBean();
+		MemberBean bean =null;
 		try {
 			PreparedStatement pstmt= DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection().prepareStatement(SQL.MEMBER_FINDBYID);
 			pstmt.setString(1, id);
 			ResultSet rs =pstmt.executeQuery();
 			if (rs.next()) {
+				bean= new MemberBean();
 				// id, name, password,ssn,regdate
-				bean.setId(rs.getString(DB.ID));
+				bean.setId(rs.getString(DB.MEMBER_ID));
 				bean.setName(rs.getString(DB.MEMBER_NAME));
 				bean.setPw(rs.getString(DB.MEMBER_PW));
-				bean.setSsn(rs.getString(DB.PW));
+				bean.setSsn(rs.getString(DB.MEMBER_SSN));
 				bean.setRegedate(rs.getString(DB.MEMBER_REGDATE));
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("DB FIND BY ID: " + bean.toString());
 		return bean;
 	}
 

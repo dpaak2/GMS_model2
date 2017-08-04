@@ -1,14 +1,21 @@
 package com.gms.web.command;
 
-public class Command  {
-	protected String directory,action, page;
+import com.gms.web.constant.Extension;
+import com.gms.web.constant.Path;
 
-	public String getDirectory() {
-		return directory;
+public class Command implements Commandable {
+	protected String dir,action, page,view;
+
+	public String getView() {
+		return view;
 	}
 
-	public void setDirectory(String directory) {
-		this.directory = directory;
+	public String getDirectory() {
+		return dir;
+	}
+
+	public void setDirectory(String dir) {
+		this.dir = dir;
 	}
 
 	public String getAction() {
@@ -26,12 +33,21 @@ public class Command  {
 	public void setPage(String page) {
 		this.page = page;
 	}
-
+	
+	@Override
+	public void process() {
+		/*VIEW를 정해준다*/
+		this.view=Path.VIEW+dir+Path.SEPARATOR+page+Extension.JSP;
+		System.out.println("Command process:"+this.view);
+	}
+	
 	@Override
 	public String toString() {
-		return "!!!!! Command [dest= WEB-INF/" +directory+"/"+page+"/" +action+"\n"+
-			"DIRECTORY:::"+	directory +" , PAGE:::" + page + "]";
+		return "!!!!! Command [dest= WEB-INF/" +dir+"/"+page+"/" +action+"\n"+
+			"DIRECTORY:::"+	dir +" , PAGE:::" + page + "]";
 	}
+
+
 	
 	
 }

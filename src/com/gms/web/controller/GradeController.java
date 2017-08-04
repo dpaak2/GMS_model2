@@ -15,42 +15,6 @@ public class GradeController extends HttpServlet {
 		System.out.println("%%%%%%%%%% Grade controller ===== get 진입");
 		String action=request.getParameter("action");
 		System.out.println("GradeController action: "+action);
-		switch (action) {
-		case "move": 
-			System.out.println("======  진입");
-			DispatcherSevlet.send(request, response);
-			break;
-		
-		case "login":
-			System.out.println("login controller==========");
-			DispatcherSevlet.send(request, response);
-			break;
-			
-		case "list":
-			System.out.println("list controller==========");
-			DispatcherSevlet.send(request, response);
-			break;
-			
-		case"add":
-			System.out.println("controller update 진입");
-			DispatcherSevlet.send(request, response);
-			break;
-			
-		case"delete":
-			System.out.println("controller delete 진입");
-			break;
-			
-		case"detail":
-			System.out.println("controller detail 진입");
-			break;
-			
-		case"update":
-			System.out.println("controller update 진입");
-			break;
-		}
-		
-
-		
 	}
 	
 	

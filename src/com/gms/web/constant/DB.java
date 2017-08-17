@@ -23,8 +23,11 @@ public class DB {
 	public static final String TABLE_BOARD="Board";
 	public static final String ARTICLE_COUNT="article_count";
 	public static final String ARTICLE_SEQ="article_seq";
-	public static final String ARTICLE_TITLE="title";
 	public static final String ARTICLE_CONTENT="content";
+	public static final String TABLE_MAJOR="Major";
+	public static final String MAJOR_ID="major_id";
+	public static final String TITLE="title";
+	public static final String SUBJECT_ID="subj_id";
 	
 	
 }

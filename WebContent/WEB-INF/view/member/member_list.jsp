@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="member_head.jsp" %>
+<jsp:include page="../common/common_head.jsp"/>
 <div id="container">
 <!--id, pw, ssn,name,regedate,email,major,subject-->
 <table id="member_list_tab">
@@ -55,7 +55,7 @@
 	</tr>
 </table>
 </div>
-<%@ include file="../common/footer.jsp"%>
+<jsp:include page="../common/footer.jsp"/>
 
 
 

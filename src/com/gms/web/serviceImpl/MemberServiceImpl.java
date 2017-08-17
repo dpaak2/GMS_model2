@@ -1,10 +1,13 @@
 package com.gms.web.serviceImpl;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.gms.web.DAO.MemberDAO;
 import com.gms.web.DAOImpl.MemberDAOImpl;
+import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
 import com.gms.web.service.MemberService;
+import com.gms.web.util.Separator;
 
 public class MemberServiceImpl implements MemberService {
 	MemberBean member;
@@ -23,21 +26,30 @@ public class MemberServiceImpl implements MemberService {
 	
 
 	@Override
-	public String login(MemberBean bean) {
+	public Map<String,Object> login(MemberBean bean) {
+		Map<String,Object> map= new HashMap<>();
 		System.out.println("MemberServiceImpl login entered!!!!");
 	    MemberBean m = findById(bean.getId());
-		return (m!=null)?(bean.getPw().equals(m.getPw()))?"main":"login_fail":"join";
+	    String page=(m!=null)?(bean.getPw().equals(m.getPw()))?"main":"login_fail":"join";
+	    map.put("page", page);
+	    map.put("user", m);
+		return map;
 	
 	}
 	
 	@Override
-	public String addMember(MemberBean bean) {
+	public String addMember(Map<String, Object> map) {
+		System.out.println("Member serviceImpl entered");
 		String result="";
-		
-			MemberDAO dao=new MemberDAOImpl();
-			result= (!dao.insertMember(bean).equals("1"))?"회원가입이 실패하였습니다.":"회원가입성공 되었습니다.";
-			System.out.println("service impl:"+result);
-		
+		MemberBean m = (MemberBean) map.get("member");
+		System.out.println("넘어온 학생 회원정보 ==="+ m.toString());
+		@SuppressWarnings("unchecked")
+		List<MajorBean> list= (List<MajorBean>) map.get("major");
+		System.out.println("넘어온 과목들 !!!"+list.toString());
+		result= dao.insertMember(map);
+		Separator.cmd.setDirectory("common");
+		Separator.cmd.setPage("main");
+		Separator.cmd.process();
 		return result;
 	}
 
@@ -80,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
 		if (!bean.getSsn().equals("")) {
 			mem.setSsn(bean.getSsn());
 		}
-		System.out.println("serviceImpl*****" + mem.toString());
+		System.out.println("serviceImpl*****" + mem);
 		return result;
 	}
 

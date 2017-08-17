@@ -1,47 +1,86 @@
 package com.gms.web.DAOImpl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.gms.web.DAO.MemberDAO;
 import com.gms.web.constant.DB;
 import com.gms.web.constant.SQL;
 import com.gms.web.constant.Vendor;
+import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
 import com.gms.web.factory.DatabaseFactory;
 
 
 
+
 public class MemberDAOImpl implements MemberDAO {
 	public static MemberDAO instance= new MemberDAOImpl();
+	Connection conn;
+	/*sigleton */
 	public static MemberDAO getInstance() {
 		return instance;
 	}
-	public MemberDAOImpl(){}
-	
-	
-	
+	public MemberDAOImpl(){
+		 conn=null; 
+	}
 	
 	@Override
-	public String insertMember(MemberBean bean) {
+	public String insertMember(Map<?, ?> map) {
 		String insertMember="";
-		System.out.println("inserMember dao: "+bean.toString());
+		MemberBean bean= (MemberBean) map.get("member");
+		@SuppressWarnings("unchecked")
+		List<MajorBean> list = (List<MajorBean>) map.get("major");
+		PreparedStatement pstmt=null;
+		 //catch에서 잡아 줘야 되서 밖으로 뺐다 
 		try {
-			PreparedStatement pstmt=DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection().prepareStatement(SQL.MEMBER_INSERT);
+			//transaction
+			Connection conn=DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection();
+			conn.setAutoCommit(false); 
+			pstmt=conn.prepareStatement(SQL.MEMBER_INSERT);
+			System.out.println("member insert::"+SQL.MEMBER_INSERT);
+			/*("INSERT INTO %s(member_id, name, password,ssn,phone,email,profile,regdate)*/
 			pstmt.setString(1, bean.getId());
 			pstmt.setString(2, bean.getName());
 			pstmt.setString(3, bean.getPw());
 			pstmt.setString(4, bean.getSsn());
-			insertMember=String.valueOf(pstmt.executeUpdate());
-			System.out.println("DAOIMPL: "+ insertMember);
+			pstmt.setString(5, bean.getPhone());
+			pstmt.setString(6, bean.getEmail());
+			pstmt.setString(7, bean.getProfile());
+			pstmt.executeUpdate();
+			for(int i=0;i<list.size();i++){
+				pstmt=conn.prepareStatement(SQL.MJAJOR_INSERT);
+				pstmt.setString(1, list.get(i).getMajorId());
+				System.out.println("DAOIMPL ::major+id"+list.get(i).getMajorId());
+				pstmt.setString(2, list.get(i).getTitle());
+				System.out.println("DAOIMPL ::major+title" + list.get(i).getTitle());
+				pstmt.setString(3, list.get(i).getId());
+				System.out.println("DAOIMPL ::major+id"+ list.get(i).getId());
+				pstmt.setString(4, list.get(i).getSubjId());
+				System.out.println("DAOIMPL ::major+subjecid"+list.get(i).getSubjId());
+				insertMember= String.valueOf(pstmt.executeUpdate());
+				System.out.println("query::::"+SQL.MJAJOR_INSERT);
+				System.out.println("$$$$$$$$$$ insert major result="+insertMember);
+			}
+			conn.commit();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println("DAO IMPL insert member error!!");
 			e.printStackTrace();
+			if(conn != null){ //conn이 유지 되고 있다는것이다 
+				try {
+					conn.rollback();
+				} catch (SQLException ex) {
+					e.printStackTrace();
+					System.out.println("sql transaction error!!!!! ");
+				}
+			}
 		}
-		System.out.println("dao insertMember int: "+insertMember);
+		System.out.println(insertMember);
 		return insertMember;
 	}
 

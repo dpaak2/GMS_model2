@@ -8,13 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gms.web.util.DispatcherSevlet;
+import com.gms.web.util.Separator;
 @WebServlet("/board.do")
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("@@@@@@@@@@@@@@ BoardController do get 진입");
 		String action=request.getParameter("action");
 		System.out.println("BoardController action: "+action);
+		Separator.init(request);
 		switch (action) {
 		case "move": 
 			System.out.println("======  진입");
@@ -49,10 +51,6 @@ public class BoardController extends HttpServlet {
 			break;
 		}
 		
-		
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("@@@@@@@@@@@@@@ BoardController do post 진입");
 		
 	}
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../member/member_head.jsp" %>
+<jsp:include page="../member/member_head.jsp"/>
 <div id="container" class="margin-center" style="width: 500px;">
 <img src="<%=request.getContextPath()%>/WEB-INF/resources/img/joinimg.jpg" alt="" />
 <form id="join_form" action="">
@@ -40,4 +40,4 @@
 </fieldset>
 </form>
 </div>
-<%@ include file="../common/footer.jsp"%>
+<jsp:include page="../common/footer.jsp"/>

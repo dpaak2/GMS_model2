@@ -14,4 +14,4 @@
 <h1 id="title"> 성적 관리</h1>
 <a id="go_main" href="../index.jsp">메인으로 가기</a><br />
 <hr />
-<%@ include file="../common/footer.jsp"%>
+<jsp:include page="../common/footer.jsp"/>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="member_head.jsp" %>
+<jsp:include page="../common/common_head.jsp"/>
  <div id="container">
 			  <form id="update_value" action="<%=request.getContextPath()%>/member/service_update.jsp" method="get">
 				<table id="member_detail_tab">
@@ -44,5 +44,5 @@
 	   </div>
 	<br /><br /><br /><br />
 	
-	<%@ include file="../common/footer.jsp"%>
+	<jsp:include page="../common/footer.jsp"/>
 	

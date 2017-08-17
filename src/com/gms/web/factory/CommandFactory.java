@@ -8,6 +8,7 @@ public class CommandFactory {
 		Command cmd=null;
 		switch (action) {
 		case Action.MOVE: case Action.LOGIN:cmd= new MoveCommand(dir, action, page);
+		case Action.LOGOUT: case Action.JOIN :cmd= new MoveCommand(dir, action, page);
 		break;
 		default:/*이게 찍히면 시스템 종료다 */System.out.println("Command Failed!!!!!");break;
 		}

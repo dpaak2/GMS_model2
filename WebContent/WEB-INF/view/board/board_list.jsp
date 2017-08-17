@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="board_head.jsp" %>
+<jsp:include page="../common/common_head.jsp"/>
 <div id="container">
 <img src="<%=request.getContextPath() %>/img/board_list.jpg" alt="" />
 <table border=1 class=" width-80pro border-collapse margin-center">
@@ -53,4 +53,4 @@
 	</tr>
 </table>
 </div>
-<%@ include file="../common/footer.jsp" %>
+<jsp:include page="../common/footer.jsp"/>

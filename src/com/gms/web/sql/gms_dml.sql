@@ -21,7 +21,8 @@ CREATE SEQUENCE seq
  -- [7]BOARD_TAB
  -- **************************
 
- 
+ select * from MEMBER;
+ select * from MAJOR;
  
  /* -- [1]MAJOR_TAB*/
  --DDL
@@ -30,7 +31,10 @@ CREATE TABLE MAJOR(
 	title varchar2(10),
 	primary key (major_id)
 );
+alter table major add member_id varchar2(10);
+alter table major add subj_id varchar2(10);
 
+select * from MAJOR;
  --DML
 INSERT INTO Major () VALUES ();
 
@@ -409,6 +413,9 @@ insert into professor values(9002, '홍길동', 'hong', '조교수', 320, 2013, 
 insert into professor values(9003, '이순신', 'lee', '전임강사', 240, 2015, 0, 102);
 insert into professor values(9004, '유관순', 'you', '부교수', 400, 2010, 17, 202);
 insert into professor values(9005, '엘리자베스', 'eli', '교수', 600, 2012, 18, 200);
+
+insert into professor values(9006, '자만', 'zaman', '전임강사', 400, 2017, 18, 102);
+insert into professor values(9007, '빈', 'bean', '부교수', 400, 2017, 18, 202);
 /*student*/
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1000,'송중기','song','1','1985-09-19','010-1234-1234','101','9001','178');
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1001,'박보검','park','2','1990-01-02','010-1234-1234','101','9001','183');
@@ -430,6 +437,7 @@ insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) val
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1017,'강미나','mina','2','1990-01-01','010-1234-1234','101','9001','147');
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1018,'유연정','yooyeon','3','1990-03-25','010-1234-1234','101','9001','167');
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1019,'이승민','min','4','1989-11-02','010-1234-1234','101','9001','187');
+
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1020,'이석훈','hun','4','1989-08-11','010-1234-1234','200','9005','174');
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1021,'권재승','seong','1','1996-11-25','010-1234-1234','200','9005','166');
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1022,'임시환','sisi','2','1993-06-25','010-1234-1234','200','9005','163');
@@ -451,8 +459,19 @@ insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) val
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1038,'chole','choleee','1','1990-01-13','010-1234-1234','200','9005','167');
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1039,'장문복','moonb','1','1998-02-14','010-1234-1234','200','9005','167');
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1040,'강다니엘','danny','1','1999-08-13','010-1234-1234','200','9005','167');
+insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1040,'강다니엘','danny','1','1999-08-13','010-1234-1234','200','9005','167');
+
+insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1041,'강다니엘','danny','1','1999-08-13','010-1234-1234','200','9005','167');
+insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1042,'줄리엔강','danny','1','1999-08-13','010-1234-1234','200','9005','167');
+insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1043,'','danny','1','1999-08-13','010-1234-1234','200','9005','167');
+insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1044,'강다니엘','danny','1','1999-08-13','010-1234-1234','200','9005','167');
 
 
 
+insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1040,'강다니엘','danny','1','1999-08-13','010-1234-1234','200','9005','167');
+
+
+
+ 
 
 

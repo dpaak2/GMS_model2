@@ -1,7 +1,9 @@
 package com.gms.web.constant;
 
 public class SQL {
-	public static final String MEMBER_INSERT = String.format("INSERT INTO %s(id, name, password, ssn, regdate) VALUES(?,?,?,?,SYSDATE)", DB.TABLE_MEMBER);
+	// id, pw,name,email,major,subject,phone,profile;
+	public static final String MEMBER_INSERT = String.format("INSERT INTO %s(member_id, name, password,ssn,phone,email,profile,regdate) "
+																	       + "VALUES(?,?,?,?,?,?,?,SYSDATE)", DB.TABLE_MEMBER);
 	public static final String MEMBER_LIST = String.format("SELECT * FROM %s", "Member");
 	public static final String MEMBER_FINDBYNAME=String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_MEMBER,DB.MEMBER_NAME);
 	public static final String MEMBER_FINDBYID=String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_MEMBER,DB.MEMBER_ID);
@@ -13,7 +15,10 @@ public class SQL {
 	public static final String ARTICLE_LIST=String.format("SELECT * FROM %s", DB.TABLE_BOARD);
 	public static final String ARTICLE_SELECTBYSEQ=String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_BOARD,DB.ARTICLE_SEQ);
 	public static final String ARTICLE_SELECTBYID=String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_BOARD,DB.MEMBER_ID);
-	public static final String ARTICLE_UPDATE=String.format("UPDATE %s SET %s=?,%s=? WHERE %s=?", DB.TABLE_BOARD,DB.ARTICLE_TITLE,DB.ARTICLE_CONTENT,DB.ARTICLE_SEQ);
+	public static final String ARTICLE_UPDATE=String.format("UPDATE %s SET %s=?,%s=? WHERE %s=?", DB.TABLE_BOARD,DB.TITLE,DB.ARTICLE_CONTENT,DB.ARTICLE_SEQ);
 	public static final String ARTICLE_DELETE=String.format("DELETE FROM %s WHERE %s=?", DB.TABLE_BOARD,DB.ARTICLE_SEQ);
+	public static final String MJAJOR_INSERT=String.format("INSERT INTO %s(%s,%s,%s,%s) VALUES(?,?,?,?)",
+			                                                   DB.TABLE_MAJOR,DB.MAJOR_ID,DB.TITLE,DB.MEMBER_ID,DB.SUBJECT_ID);
+	
 	
 }

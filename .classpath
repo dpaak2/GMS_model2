@@ -13,9 +13,10 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/1027/JSPProjects/jars/jstl.jar"/>
-	<classpathentry kind="lib" path="C:/Users/1027/JSPProjects/jars/ojdbc6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/1027/JSPProjects/jars/servlet-api.jar"/>
-	<classpathentry kind="lib" path="C:/Users/1027/JSPProjects/jars/standard.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/1027/JSPProjects/jars/ojdbc6.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/1027/JSPProjects/jars/servlet-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/1027/JSPProjects/jars/standard.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/1027/JSPProjects/jars/jstl-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/1027/JSPProjects/jars/lombok.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

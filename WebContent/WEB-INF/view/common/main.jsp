@@ -9,7 +9,7 @@
 		<div class="col-sm-4">
 		<h3>학생 관리</h3>
 			<ul id="main_ul_stu" >
-				<li><a >학생 추가</a></li>
+				<li><a>학생 추가</a></li>
 				<li><a>학생 목록</a></li>
 				<li><a>학생 상세정보</a></li>
 				<li><a >학생 수정</a></li>

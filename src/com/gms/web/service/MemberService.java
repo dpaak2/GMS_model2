@@ -8,7 +8,7 @@ import com.gms.web.domain.MemberBean;
 public interface MemberService {
 	public Map<String,Object> login(MemberBean bean); /*client를 */
 	public String addMember(Map<String, Object> map);
-	public List<MemberBean> getMembers();
+	public List<?> list();
 	public String countMembers();
 	public MemberBean findById(String id);
 	public List<MemberBean> findByName(String name);

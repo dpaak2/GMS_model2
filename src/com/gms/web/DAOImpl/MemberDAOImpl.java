@@ -14,6 +14,7 @@ import com.gms.web.constant.SQL;
 import com.gms.web.constant.Vendor;
 import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
+import com.gms.web.domain.StudentBean;
 import com.gms.web.factory.DatabaseFactory;
 
 
@@ -85,18 +86,24 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<MemberBean> selectAll() {
-		List<MemberBean> memberList = new ArrayList<>();
-		MemberBean temp = null;
+	public List<?> selectAll() {
+		List<StudentBean> memberList = new ArrayList<>();
+		System.out.println("%%%%%query student List " +SQL.STUDENT_LIST);
+	
 		try {
-			ResultSet rs =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection().prepareStatement(SQL.MEMBER_LIST).executeQuery();
+			ResultSet rs =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection().
+					prepareStatement(SQL.STUDENT_LIST).executeQuery();
+			StudentBean temp = null;
 			while (rs.next()) {
-				temp = new MemberBean();
-				temp.setId(rs.getString(DB.MEMBER_ID));
+				temp = new StudentBean();
+				temp.setId(rs.getString(DB.STU_ID));
 				temp.setName(rs.getString(DB.MEMBER_NAME));
-				temp.setPw(rs.getString(DB.MEMBER_PW));
 				temp.setSsn(rs.getString(DB.MEMBER_SSN));
-				temp.setRegedate(rs.getString(DB.MEMBER_REGDATE));
+				temp.setEmail(rs.getString(DB.EMAIL));
+				temp.setPhone(rs.getString(DB.PHONE));
+				temp.setRegdate(rs.getString(DB.MEMBER_REGDATE));
+				temp.setNum(rs.getString(DB.NUM));
+				temp.setTitle(rs.getString(DB.TITLE));
 				memberList.add(temp);
 			}
 		} catch (Exception e) {

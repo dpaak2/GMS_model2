@@ -471,7 +471,120 @@ insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) val
 insert into Stu (stuno,name,userid,grade,birthdate,tel,deptno,profno,height) values (1040,'강다니엘','danny','1','1999-08-13','010-1234-1234','200','9005','167');
 
 
+/*=---------------------------------------------------------------------*/
 
+ select rownum no, m.member_id 아이디, m.name 이름, m.ssn 생일,m.phone 전화번호,
+ m.email email,to_char(m.regdate,'yyyy-mm-dd') 등록일
+ from Member m 
+ join  Major mj
+ on m.major_id=mj.major_id;
+ 
+ (( select rownum no, m.member_id 아이디, m.name 이름, m.ssn 생일,m.phone 전화번호,m.major_id 수강과목
+ m.email email,to_char(m.regdate,'yyyy-mm-dd') 등록일
+ from Member m 
+ join  Major mj
+ on m.major_id=mj.major_id)
+ union 
+ (select rownum no, m.member_id 아이디, m.name 이름, m.ssn 생일,m.phone 전화번호,mj.major_id 수강과목
+ m.email email,to_char(m.regdate,'yyyy-mm-dd') 등록일
+ from Member m 
+ join  Major mj
+ on m.member_id=mj.member_id)) order by no;
  
 
+ select rownum, t.*
+from (
+    select a.member_id ID, a.name 이름, a.ssn 생년월일, a.phone 전화, a.email 메일, s.title 수강과목 ,to_char(a.regdate,'yyyy-mm-dd') 등록일
+    from member a
+        left outer join major m on a.member_id = m.member_id
+        left join subject s on m.subj_id = s.subj_id
+    order by regdate desc
+) t
+;
 
+select rownum NO, t.* 
+from (select substr(m.ssn,1,6) ssn, m.name, listagg(j.subj_id,',') within group(order by j.subj_id)as subj, substr(m.REGDATE,1) regdate
+from member m left join major j using(member_id)
+group by m.name, ssn, regdate 
+order by m.regdate)t 
+order by NO desc;
+
+select rownum, t.*
+from (select a.member_id, a.name,rpad(substr(a.ssn,1,7),14,'*') ssn,to_char(a.regdate,'yyyy-MM-dd') regdate,
+        a.phone,a.email,listagg(s.title,',') within group(order by s.title) 과목
+    from member a
+        left  join major m on a.member_id like m.member_id
+        left join subject s on m.subj_id like s.subj_id
+        group by a.member_id, a.name, a.ssn,a.regdate,a.phone,a.email
+        order by regdate desc
+) t
+  order by rownum desc
+;
+
+
+/***************************************** view ***********************************/
+drop view student;
+
+create view student(num,id,name,ssn,regdate,phone,email,title)
+as
+select rownum num, t.*
+from (select a.member_id, a.name,rpad(substr(a.ssn,1,7),14,'*') ssn,to_char(a.regdate,'yyyy-MM-dd') regdate,
+        a.phone,a.email,listagg(s.title,',') within group(order by s.title) 과목
+    from member a
+        left  join major m on a.member_id like m.member_id
+        left join subject s on m.subj_id like s.subj_id
+        group by a.member_id, a.name, a.ssn,a.regdate,a.phone,a.email
+        order by regdate 
+) t
+  order by rownum desc;
+ /******************/
+  select rownum, t.*
+from (
+    select a.mem_id, a.name, a.ssn, a.phone, a.email, LISTAGG(s.title, ',') within group (order by s.title) title, to_char(a.regdate,'yyyy-MM-dd') regdate 
+    from member a
+        left outer join major m on a.mem_id = m.mem_id
+        left join subject s on m.subj_id = s.subj_id
+    group by a.mem_id, a.name, a.ssn, a.phone, a.email,a.regdate  
+    order by regdate 
+) t
+order by rownum desc;
+  
+/***************************pagination************************************************/
+/*5명만 나오게 하는것*/
+SELECT * FROM student
+WHERE rownum <= 5;   /*---> rownum이 5보다 큰것이 나오고*/
+
+/*5명만 한페이지에 나오게 하는것 */
+SELECT *
+FROM (SELECT * FROM student
+WHERE num >(SELECT count(*) FROM student)-5);   /*---> 전체의 개수에서 -5 */
+
+
+
+/*결과 값이 없고 schema만 존재 */
+SELECT rownum, s.*
+FROM student s
+WHERE rownum BETWEEN 6 AND 10;
+
+
+/*원하는 결과값이 나온다*/
+SELECT t.*
+FROM (SELECT rownum rnum, s.*
+   FROM student s)t
+   WHERE t.rnum BETWEEN 6 AND 10;
+   
+
+
+
+
+ select rownum,s.*
+ from student s 
+ where rownum between 6 and 10;
+ 
+ select t.*
+ from (select rownum rnum, s.*
+ from student s)t
+ where t.rnum between 6 and 10;
+  
+ select * from student;
+ select * from major;

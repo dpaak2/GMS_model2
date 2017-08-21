@@ -9,6 +9,10 @@ SELECT * FROM Board WHERE id LIKE '%hong%';
 SELECT *FROM Board;
 
 select * from Stu;
+select * from member;
+select * from MAJOR;
+
+
 
 -dept/professor/sutd/salgrade
 --전공/교수/학생/
@@ -104,6 +108,9 @@ from (select s.grade "학년",
 	order by s.grade)t
 ;
 
+select ROWNUM no, m.member_id 아이디, m.name 이름, m.ssn,m.phone,m.email,m.regdate
+from Member m
+join Major mj on  m.member_id=mj.member_id;
 
 
 /*013 공과대학 학생 중 김씨 리스트 (like 사용)*/

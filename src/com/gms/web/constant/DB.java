@@ -28,6 +28,13 @@ public class DB {
 	public static final String MAJOR_ID="major_id";
 	public static final String TITLE="title";
 	public static final String SUBJECT_ID="subj_id";
+	public static final String EMAIL="email";
+	public static final String PHONE="phone";
+	
+	public static final String TABLE_STUDENT="student";
+	public static final String NUM="num";
+	public static final String STU_ID="id";
+	
 	
 	
 }

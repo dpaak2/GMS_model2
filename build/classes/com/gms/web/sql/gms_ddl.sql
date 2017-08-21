@@ -21,7 +21,6 @@ CREATE SEQUENCE article_seq
  -- **************************
 
  
- 
  /* -- [1]MAJOR_TAB*/
 CREATE TABLE Member(
 	member_id VARCHAR2(10),
@@ -31,6 +30,7 @@ CREATE TABLE Member(
 	regdate DATE,
 	PRIMARY KEY(id)
 );
+
 
 
 /* -- [6]BOARD_TAB*/

@@ -6,6 +6,7 @@ import com.gms.web.DAO.MemberDAO;
 import com.gms.web.DAOImpl.MemberDAOImpl;
 import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
+import com.gms.web.domain.StudentBean;
 import com.gms.web.service.MemberService;
 import com.gms.web.util.Separator;
 
@@ -13,7 +14,7 @@ public class MemberServiceImpl implements MemberService {
 	MemberBean member;
 	Map<String, MemberBean> map; // key 값은 String으로 주고 object(instance) =
 									// MemberBean이다
-	List<MemberBean> list;
+	List<StudentBean> list;
 	
 	
 	private MemberDAO dao=MemberDAOImpl.getInstance();
@@ -58,9 +59,10 @@ public class MemberServiceImpl implements MemberService {
 		return new MemberDAOImpl().countMembers(); // memberList.length;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<MemberBean> getMembers() {
-		list=dao.selectAll();
+	public List<?> list() {
+		list=(List<StudentBean>) dao.selectAll();
 		return list; // ArrayList가 된다
 	}
 
@@ -99,7 +101,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String removeUser(String id) {
 		String removeResult = "";
-		for (MemberBean m : list) {
+		for (StudentBean m : list) {
 			if (id.equals(m.getId())) {
 				// list.get(i)=list[count-1];
 				map.remove(id);

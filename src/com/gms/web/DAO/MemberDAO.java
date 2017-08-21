@@ -6,8 +6,8 @@ import com.gms.web.domain.MemberBean;
 
 public interface MemberDAO {
 	public String insertMember(Map<?, ?> map);
-	public List<?> selectAll();
-	public String countMembers();
+	public List<?> selectAll(Object o);
+	public String count();
 	public MemberBean selectById(String id);
 	public List<MemberBean> selectByName(String name);
 	public String updateProfile(MemberBean bean);

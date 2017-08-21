@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="../common/common_head.jsp"/>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">SEARCH</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<div style="height: 40; width: 300px;"></div>
+
+
 <div id="container">
 <!--id, pw, ssn,name,regedate,email,major,subject-->
 <table id="member_list_tab">
@@ -15,14 +28,16 @@
 	</tr>
 	<c:forEach var="i" items="${requestScope.list}">
 	<tr>
-		<td>${i.num}</td>
-		<td>${i.id}</td>
-		<td>${i.name}</td>
-		<td>${i.email}</td>
-		<td>${i.title}</td>
-		<td>${i.phone}</td>
-		<td>${i.regdate}</td>
-		<td><button>delete</button></td>
+		<td style="width: 10%;">${i.num}</td>
+		<td style="width: 10%;">${i.id}</td>
+		<td style="width: 10%;"><a onclick="detailStudent('${i.id}')">${i.name}</a></td>
+		<td style="width: 20%;">${i.email}</td>
+		<td style="width: 10%;">${i.title}</td>
+		<td style="width: 10%;">${i.phone}</td>
+		<td style="width: 15%;">${i.regdate}</td>
+		<td style="width: 15%;"><a onclick="updateStudent('${i.id}')">수정</a>
+		/
+		<a onclick="deleteStudent('${i.id}')">삭제</a></td>
 
 	</tr>
 	</c:forEach>
@@ -30,39 +45,60 @@
 	<nav aria-label="Page navigation" style="width:450px; margin: 0 auto;">
 	  <ul class="pagination">
 	  <c:if test="${requestScope.prevBlock gt 0 }">
-	   <li><a href="#"><span class="glyphicon glyphicon-step-backward " aria-hidden="true"></span></a></li>
+	   <li><a onclick="list('member','member_list','1')"><span class="glyphicon glyphicon-step-backward " aria-hidden="true"></span></a></li>
 	    <li>
-	      <a href="#" aria-label="Previous">
+	      <a onclick="list('member','member_list','${requestScope.startPage-1}')" aria-label="Previous">
 	        <span aria-hidden="true">&laquo;</span>
 	      </a>
 	    </li>
-	    </c:if>
+	  </c:if>
+	    
 	    <c:forEach varStatus="i" begin="${requestScope.startPage}" end="${requestScope.endPage}" step="1">
 	      <c:choose>
 		    <c:when test="${i.index eq requestScope.pageNumber}">
 	       <li class="active"><a href="#">${i.index}</a></li>
 		    </c:when>
 		      <c:otherwise>
-		      <li><a onclick="list('member','member_list',${i.index})">${i.index}</a></li>
+		      <li><a onclick="list('member','member_list','${i.index}')">${i.index}</a></li>
 			  </c:otherwise>
 		</c:choose>
 	    </c:forEach>
 	    
-	  <c:if test="${requsetScope.nextBlock le requestScope.theNumberOfPages}">
-	     <li>
-	      <a href="#" aria-label="Next">
-	        <span aria-hidden="true">&raquo;</span>
-	      </a>
+	    
+	 <%--    <c:if test="${requsetScope.nextBlock le requestScope.theNumberOfPages}">
+	     <li><a aria-label="Next"><span aria-hidden="true" >&raquo;</span></a>
 	    </li>
 	     <li><a href="#"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a></li>
-	    </c:if>
-	    
+	  </c:if>
+	   --%>
+
+
+    <!-- Next -->
+      <c:if test="${requestScope.nextBlock le requestScope.theNumberOfPages}">       
+         <li><a onclick="list('member', 'member_list', '${requestScope.endPage+1}')" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+         <li><a onclick="list('member', 'member_list', '${requestScope.theNumberOfPages}')" href="#">
+         <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span></a></li>
+      </c:if>
+	   
 	  </ul>
 	</nav>
 </div>
+<script>
+function updateStudent(id){
+	alert('수정할  id: '+id);
+	location.href="${ctx}/member.do?action=update&page=member_update&id="+id;
+}
+function deleteStudent(id){
+	alert('삭제할 아이디: '+id);
+	location.href="${ctx}/member.do?action=delete&page=member_list&id="+id;
+}
+function detailStudent(id){
+	alert('디테일 아이디: '+id);
+	location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
+}
+</script>
 <jsp:include page="../common/footer.jsp"/>
 
-${i.index}
 
 
 

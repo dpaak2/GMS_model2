@@ -3,11 +3,8 @@ package com.gms.web.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.util.ParameterMap;
-
 import com.gms.web.constant.Action;
 import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
-import com.gms.web.domain.StudentBean;
+import com.gms.web.proxy.BlockHandler;
+import com.gms.web.proxy.PageHandler;
+import com.gms.web.proxy.PageProxy;
 import com.gms.web.service.MemberService;
 import com.gms.web.serviceImpl.MemberServiceImpl;
 import com.gms.web.util.DispatcherSevlet;
@@ -52,8 +49,6 @@ public class MemberController extends HttpServlet {
 		
 			DispatcherSevlet.send(request, response);
 			break;
-			
-	
 			
 		case Action.JOIN:
 			System.out.println("controller member==== join 진입");
@@ -89,37 +84,36 @@ public class MemberController extends HttpServlet {
 			
 		case Action.LIST:
 			System.out.println("&&&&&&&&& Member controller list entered==========");
-			@SuppressWarnings("unchecked") 
-			List<StudentBean> memberList=(List<StudentBean>) service.list();
-			System.out.println("DB "+memberList);
-				request.setAttribute("pageNumber", request.getParameter("pageNumber")); //내가 원하는 페이지를 전송 -> default page number
-				request.setAttribute("list", memberList); // list 가져감
-				request.setAttribute("theNumberOfPages", memberList.size()/5);
-				request.setAttribute("startPage", 1);
-				System.out.println("페이지수:::"+memberList.size()/5);
-				int pageCount=memberList.size()/5;
-				int endPage=(pageCount%5!=0)?pageCount+1:pageCount;
-				request.setAttribute("endPage", String.valueOf(endPage));
+			PageProxy pxy=new PageProxy(request);
+			pxy.setPageSize(5);
+			pxy.setBlockSize(5);
+			pxy.setTheNumberOfRows(Integer.parseInt(service.count()));
+			System.out.println("카운트::::::"+ service.count());
+			pxy.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
+			int[] arr= PageHandler.attr(pxy);
+			int[] arr2=BlockHandler.attr(pxy);
+			pxy.execute(arr2, service.list(arr));
 			DispatcherSevlet.send(request, response);
 			break;
-		case"delete":
-			System.out.println("controller member delete 진입");
-			break;
-			
-		case"detail":
-			System.out.println("controller member detail 진입");
-			break;
-			
-		case"update":
+		case Action.UPDATE:
 			System.out.println("controller members update 진입");
+			service.modifiyProfile(service.findById(request.getParameter("id")));
+			DispatcherSevlet.send(request, response);
+			break;
+		case Action.DELETE:
+			System.out.println("controller member delete 진입");
+			/*service.removeUser(request.getParameter("id"));*/
+			response.sendRedirect(request.getContextPath()+"/member.do?action=list&page=member_list&pageNumber=1");
+			break;
+			
+		case Action.DETAIL:
+			System.out.println("controller member detail 진입");
+			request.setAttribute("student", service.findById(request.getParameter("id")));
+			DispatcherSevlet.send(request, response);
 			break;
 		}
-		
 	}
-	
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("$$$$$$$$$$$$member controller ======== do post 진입");
 	}
-
 }

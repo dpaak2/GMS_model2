@@ -31,7 +31,7 @@ public class DB {
 	public static final String EMAIL="email";
 	public static final String PHONE="phone";
 	
-	public static final String TABLE_STUDENT="student";
+	public static final String TABLE_STUDENT="Student";
 	public static final String NUM="num";
 	public static final String STU_ID="id";
 	

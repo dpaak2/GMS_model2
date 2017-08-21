@@ -12,6 +12,10 @@ public class CommandFactory {
 		case Action.LOGOUT:
 		case Action.JOIN :
 		case Action.LIST:
+		case Action.UPDATE:
+		case Action.DETAIL:
+		case Action.DELETE:
+		
 		     cmd= new MoveCommand(dir, action, page);
 		break;
 		default:/*이게 찍히면 시스템 종료다 */System.out.println("Command Failed!!!!!");break;

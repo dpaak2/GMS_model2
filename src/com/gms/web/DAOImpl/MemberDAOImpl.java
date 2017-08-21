@@ -86,14 +86,18 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<?> selectAll() {
+	public List<?> selectAll(Object o) {
 		List<StudentBean> memberList = new ArrayList<>();
+		int[] arr=(int[])o;
 		System.out.println("%%%%%query student List " +SQL.STUDENT_LIST);
 	
 		try {
-			ResultSet rs =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection().
-					prepareStatement(SQL.STUDENT_LIST).executeQuery();
-			StudentBean temp = null;
+		conn =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection();
+		PreparedStatement pstmt= conn.prepareStatement(SQL.STUDENT_LIST);
+		pstmt.setString(1, String.valueOf(arr[0]));
+		pstmt.setString(2, String.valueOf(arr[1]));
+		ResultSet rs=pstmt.executeQuery();
+		StudentBean temp = null;
 			while (rs.next()) {
 				temp = new StudentBean();
 				temp.setId(rs.getString(DB.STU_ID));
@@ -112,21 +116,22 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		return memberList;
 	}
-
+	
 	@Override
-	public String countMembers() {
-		String count = "";
+	public String count() {
+		int count = 0;
 		try {
-			PreparedStatement pstmt=DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection().prepareStatement(SQL.MEMBER_COUNT);
+			PreparedStatement pstmt=DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW)
+					.getConnection().prepareStatement(SQL.STUDENT_COUNT);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				count = rs.getString("member_count");
+				count = rs.getInt("student_count");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println("DB count: " + count);
-		return count;
+		return String.valueOf(count);
 	}
 
 	@Override

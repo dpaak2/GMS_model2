@@ -573,10 +573,7 @@ FROM (SELECT rownum rnum, s.*
    FROM student s)t
    WHERE t.rnum BETWEEN 6 AND 10;
    
-
-
-
-
+/*block 을 신경쓰지 않은 개념 */
  select rownum,s.*
  from student s 
  where rownum between 6 and 10;
@@ -588,3 +585,28 @@ FROM (SELECT rownum rnum, s.*
   
  select * from student;
  select * from major;
+ 
+ 
+ /*block 단위를 계산 해서 가지고 오는 query*/
+ select t2.*
+ from (select rownum seq, t.*
+ from( select * 
+ from student
+ order  by num DESC )t)t2
+ where t2.seq between 1 and 5;
+ 
+
+ 
+select count(*) as count from student;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

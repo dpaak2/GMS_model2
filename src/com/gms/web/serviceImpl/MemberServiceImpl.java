@@ -55,14 +55,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String countMembers() {
-		return new MemberDAOImpl().countMembers(); // memberList.length;
+	public String count() {
+		return dao.count();// memberList.length;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<?> list() {
-		list=(List<StudentBean>) dao.selectAll();
+	public List<?> list(Object o) {
+		list=(List<StudentBean>) dao.selectAll(o);
 		return list; // ArrayList가 된다
 	}
 

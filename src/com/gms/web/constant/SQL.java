@@ -5,7 +5,6 @@ public class SQL {
 	public static final String MEMBER_INSERT = String.format("INSERT INTO %s(member_id, name, password,ssn,phone,email,profile,regdate) "
 																	       + "VALUES(?,?,?,?,?,?,?,SYSDATE)", DB.TABLE_MEMBER);
 	public static final String MEMBER_LIST = String.format("SELECT * FROM %s", "Member");
-	public static final String MEMBER_FINDBYNAME=String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_MEMBER,DB.MEMBER_NAME);
 	public static final String MEMBER_FINDBYID=String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_MEMBER,DB.MEMBER_ID);
 	public static final String MEMBER_COUNT=String.format("SELECT COUNT(*) as %s FROM %s",DB.MEMBER_COUNT,DB.TABLE_MEMBER);
 	public static final String MEMBER_UPDATE=String.format("UPDATE %s SET %s=? WHERE %s=?", DB.TABLE_MEMBER,DB.MEMBER_PW,DB.MEMBER_ID);
@@ -23,11 +22,10 @@ public class SQL {
 											+ " from (select rownum rnum, s.*"
 											+ " from student s)t"
 											+ " where t.rnum between ? and ?";
-		/*	
-			" select t2.*  from (select rownum seq, t.* "
-											+ " from( select * "
-											+ " from student "
-											+ " order  by num DESC )t)t2"
-											+ " where t2.seq between ? and ?";*/
+	public static final String MEMBER_FINDBYNAME="select t2.* "
+			+ " from (select rownum seq, t.*"
+			+ " from (select * "
+			+ " from student where name like '%' || ? || '%' order by num DESC)t)t2 where t2.seq between 1 and 5";
 	public static final String STUDENT_COUNT=String.format("SELECT COUNT(*) as student_count  FROM %s",DB.TABLE_STUDENT);
+
 }

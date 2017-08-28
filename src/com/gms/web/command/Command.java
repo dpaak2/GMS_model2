@@ -3,18 +3,33 @@ package com.gms.web.command;
 import com.gms.web.constant.Extension;
 import com.gms.web.constant.Path;
 
-public class Command implements Commandable {
-	protected String dir,action, page,view;
+import lombok.Getter;
+import lombok.Setter;
 
-	public String getView() {
-		return view;
+public class Command implements Commandable {
+	protected String dir,action, page,pageNumber,search, view,column,startRow,endRow;
+	public String getStartRow() {
+		return startRow;
 	}
 
-	public String getDirectory() {
+	public void setStartRow(String startRow){
+		this.startRow = startRow;
+	}
+
+	public String getEndRow(){
+		return endRow;
+	}
+
+	public void setEndRow(String endRow) {
+		this.endRow = endRow;
+	}
+
+	/*dir & pageNumber는 무조건 있다*/
+	public String getDir() {
 		return dir;
 	}
 
-	public void setDirectory(String dir) {
+	public void setDir(String dir) {
 		this.dir = dir;
 	}
 
@@ -23,7 +38,8 @@ public class Command implements Commandable {
 	}
 
 	public void setAction(String action) {
-		this.action = action;
+		this.action = (action.equals(""))?"move":action;
+		System.out.println("COmmand action:::"+action);
 	}
 
 	public String getPage() {
@@ -33,21 +49,46 @@ public class Command implements Commandable {
 	public void setPage(String page) {
 		this.page = page;
 	}
-	
+
+	public String getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(String pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getColumn() {
+		return column;
+	}
+
+	public void setColumn(String column) {
+		this.column = column;
+	}
+	public String getView() {
+		return view;
+	}
+
 	@Override
 	public void process() {
 		/*VIEW를 정해준다*/
-		this.view=Path.VIEW+dir+Path.SEPARATOR+page+Extension.JSP;
-		System.out.println("Command process:"+this.view);
+		this.view=(dir.equals("home"))?
+				"/WEB-INF/view/common/home.jsp":
+			Path.VIEW+dir+Path.SEPARATOR+page+Extension.JSP;
+		System.out.println("이동페이지:"+this.view);
 	}
-	
 	@Override
 	public String toString() {
 		return "!!!!! Command [dest= WEB-INF/" +dir+"/"+page+"/" +action+"\n"+
 			"DIRECTORY:::"+	dir +" , PAGE:::" + page + "]";
 	}
-
-
-	
 	
 }

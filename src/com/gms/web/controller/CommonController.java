@@ -21,18 +21,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@WebServlet("/common.do")
+@WebServlet({"/home.do","/common.do"})
 public class CommonController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MemberBean memberBean=new MemberBean();;
+		MemberBean memberBean=new MemberBean();
 		
 		System.out.println("^^^^^^^^^^CommonController do get 진입");
 		Separator.init(request);
-		
-		switch (request.getParameter(Action.CMD)) {
+		switch (Separator.cmd.getAction()) {
 		case Action.MOVE:
 			DispatcherSevlet.send(request, response);
 			break;

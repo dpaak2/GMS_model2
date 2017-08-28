@@ -10,13 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ParamsIterator {
 	public static Map<?, ?> execute(HttpServletRequest request){
-		Map<String,String> result=new HashMap<>();
-		Map<String, String[]> map= request.getParameterMap();
-		Set<Entry<String,String[]>> set= map.entrySet();
-		Iterator<Map.Entry<String, String[]>> it= set.iterator();
-		String params[]= new String[set.size()];
-		System.out.println("set size:::"+set.size());
-		int i=0;
+		Map<String,String> result = new HashMap<>();
+		Map<String, String[]> map = request.getParameterMap();
+		Set<Entry<String,String[]>> set = map.entrySet();
+		Iterator<Map.Entry<String, String[]>> it = set.iterator();
+		
+		String params[] = new String[set.size()];
+		System.out.println("***set size:::"+set.size());
+		
+		int i = 0;
 		while (it.hasNext()) {
 			Map.Entry<String, String[]> e= it.next();
 			params[i]=e.getKey();
@@ -35,6 +37,7 @@ public class ParamsIterator {
 				result.put(params[i], temp);
 			}
 		}
+		
 		
 		return result;
 		

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import com.gms.web.DAO.MemberDAO;
 import com.gms.web.DAOImpl.MemberDAOImpl;
+import com.gms.web.command.Command;
 import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
 import com.gms.web.domain.StudentBean;
@@ -28,9 +29,11 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Map<String,Object> login(MemberBean bean) {
-		Map<String,Object> map= new HashMap<>();
 		System.out.println("MemberServiceImpl login entered!!!!");
-	    MemberBean m = findById(bean.getId());
+		Map<String,Object> map= new HashMap<>();
+		Command cmd= new Command();
+		cmd.setSearch(bean.getId());
+	    MemberBean m = findById(cmd);
 	    String page=(m!=null)?(bean.getPw().equals(m.getPw()))?"main":"login_fail":"join";
 	    map.put("page", page);
 	    map.put("user", m);
@@ -48,43 +51,44 @@ public class MemberServiceImpl implements MemberService {
 		List<MajorBean> list= (List<MajorBean>) map.get("major");
 		System.out.println("넘어온 과목들 !!!"+list.toString());
 		result= dao.insertMember(map);
-		Separator.cmd.setDirectory("common");
+		Separator.cmd.setDir("home");
 		Separator.cmd.setPage("main");
 		Separator.cmd.process();
 		return result;
 	}
 
 	@Override
-	public String count() {
-		return dao.count();// memberList.length;
+	public String count(Command cmd) {
+		return dao.count(cmd);// memberList.length;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<?> list(Object o) {
-		list=(List<StudentBean>) dao.selectAll(o);
+	public List<?> list(Command cmd) {
+		list=(List<StudentBean>) dao.selectAll(cmd);
+		System.out.println("list to string servicd"+list.toString());
 		return list; // ArrayList가 된다
 	}
 
 	@Override
-	public MemberBean findById(String id) {
+	public MemberBean findById(Command cmd) {
 		MemberBean member = new MemberBean();
-		member = dao.selectById(id);
+		member = dao.selectById(cmd);
 		return member;
 	}
 
 	@Override
-	public List<MemberBean> findByName(String name) {
-		return dao.selectByName(name);
+	public List<?> findByName(Command cmd) {
+		return dao.selectByName(cmd);
 	}
 
 	@Override
 	public String modifiyProfile(MemberBean bean) {
 		String result = "";
 		// findById(bean.getPw()).setPw(bean.getPw());
-
-		MemberBean mem = findById(bean.getId());
-
+		Command cmd=new Command();
+		cmd.setSearch(bean.getId());
+		MemberBean mem = findById(cmd);
 		if (!bean.getName().equals("")) {
 			mem.setName(bean.getName());
 		}
@@ -99,12 +103,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String removeUser(String id) {
+	public String removeUser(Command cmd) {
 		String removeResult = "";
 		for (StudentBean m : list) {
-			if (id.equals(m.getId())) {
+			if (cmd.equals(m.getId())) {
 				// list.get(i)=list[count-1];
-				map.remove(id);
+				map.remove(cmd);
 				break;
 			}
 		}

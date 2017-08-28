@@ -600,6 +600,15 @@ FROM (SELECT rownum rnum, s.*
 select count(*) as count from student;
  
  
+  select t2.*
+ from (select rownum seq, t.*
+ from( select * 
+ from student
+ where name like '%홍%'
+ order  by num DESC )t)t2
+ where t2.seq between 1 and 5;
+ 
+ select * from student where name like '%전%';
  
  
  

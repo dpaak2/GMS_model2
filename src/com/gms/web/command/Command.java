@@ -38,7 +38,7 @@ public class Command implements Commandable {
 	}
 
 	public void setAction(String action) {
-		this.action = (action.equals(""))?"move":action;
+		this.action = (action==null)?"move":action;
 		System.out.println("COmmand action:::"+action);
 	}
 
@@ -48,6 +48,7 @@ public class Command implements Commandable {
 
 	public void setPage(String page) {
 		this.page = page;
+		System.out.println("페이지 이름 :: "+this.page);
 	}
 
 	public String getPageNumber() {
@@ -55,7 +56,8 @@ public class Command implements Commandable {
 	}
 
 	public void setPageNumber(String pageNumber) {
-		this.pageNumber = pageNumber;
+		this.pageNumber = (pageNumber==null)?"1":pageNumber;
+		System.out.println("command:: 페이지 번호::"+this.pageNumber);
 	}
 
 	public String getSearch() {
@@ -63,7 +65,8 @@ public class Command implements Commandable {
 	}
 
 	public void setSearch(String search) {
-		this.search = search;
+		this.search=(search==null)? "none":search;
+		System.out.println("서치: "+this.search);
 	}
 
 	public String getColumn() {
@@ -71,7 +74,8 @@ public class Command implements Commandable {
 	}
 
 	public void setColumn(String column) {
-		this.column = column;
+		this.column = (column==null)?"none":column;
+		System.out.println("컬럼: "+this.column);
 	}
 	public String getView() {
 		return view;

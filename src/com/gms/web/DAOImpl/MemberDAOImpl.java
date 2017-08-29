@@ -121,16 +121,24 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public String count(Command cmd) {
 		int count = 0;
-		try {
-			PreparedStatement pstmt=DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW)
-					.getConnection().prepareStatement(SQL.STUDENT_COUNT);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				count = rs.getInt("student_count");
+			try {
+				String sql="";
+				String search=cmd.getSearch();
+				sql=(search==null)?"%":"%"+search+"%";
+				PreparedStatement pstmt=DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW)
+						.getConnection().prepareStatement(SQL.STUDENT_COUNT);
+				pstmt.setString(1, sql);
+				System.out.println("SQL count::"+SQL.STUDENT_COUNT);
+				System.out.println("sqL;;;;"+sql);
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					count = rs.getInt("student_count");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
+		
 		System.out.println("DB count: " + count);
 		return String.valueOf(count);
 	}
@@ -160,13 +168,18 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<?> selectByName(Command cmd) {
+	public List<StudentBean> selectByName(Command cmd) {
+		
 		List<StudentBean> nameList = new ArrayList<>();
 		StudentBean temp= null;
 		String name = cmd.getSearch();
+		System.out.println("DAOIMPL select by name::"+name);
+		System.out.println("DAOIMPL select by column::"+cmd.getColumn());
 		try {
-			PreparedStatement pstmt=DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection().prepareStatement(SQL.MEMBER_FINDBYNAME);
-			pstmt.setString(1, name);
+			PreparedStatement pstmt=DatabaseFactory.createDatabase(Vendor.ORACLE, DB.ID, DB.PW).getConnection().prepareStatement(SQL.STUDENT_FINDBYNAME);
+			pstmt.setString(1,"%"+name+"%");
+			System.out.println("SQL query::"+SQL.STUDENT_FINDBYNAME);
+			System.out.println("name ::: "+name);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				temp = new StudentBean();

@@ -18,14 +18,19 @@ public class SQL {
 	public static final String ARTICLE_DELETE=String.format("DELETE FROM %s WHERE %s=?", DB.TABLE_BOARD,DB.ARTICLE_SEQ);
 	public static final String MJAJOR_INSERT=String.format("INSERT INTO %s(%s,%s,%s,%s) VALUES(?,?,?,?)", DB.TABLE_MAJOR,DB.MAJOR_ID,DB.TITLE,DB.MEMBER_ID,DB.SUBJECT_ID);
 														/* num,id,name,ssn,regdate,phone,email,title */			
-	public static final String STUDENT_LIST="select t.* "
-											+ " from (select rownum rnum, s.*"
-											+ " from student s)t"
-											+ " where t.rnum between ? and ?";
-	public static final String MEMBER_FINDBYNAME="select t2.* "
+	public static final String STUDENT_LIST=" select t2.* "
+			+ "from (select rownum seq, t.*"
+			+ " from( select * "
+			+ "from student"
+			+ " order  by num DESC )t)t2"
+			+ " where t2.seq between ? and ?";
+
+	
+	public static final String STUDENT_FINDBYNAME="select t2.* "
 			+ " from (select rownum seq, t.*"
 			+ " from (select * "
 			+ " from student where name like '%' || ? || '%' order by num DESC)t)t2 where t2.seq between 1 and 5";
-	public static final String STUDENT_COUNT=String.format("SELECT COUNT(*) as student_count  FROM %s",DB.TABLE_STUDENT);
+	
+	public static final String STUDENT_COUNT=String.format("SELECT COUNT(*) as student_count  FROM %s where name like ?",DB.TABLE_STUDENT);
 
 }

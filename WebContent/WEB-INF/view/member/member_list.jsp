@@ -76,30 +76,7 @@
 	  </ul>
 	</nav>
 </div>
-<script>
-function updateStudent(id){
-	alert('수정할  id: '+id);
-	location.href="${ctx}/member.do?action=update&page=member_update&id="+id;
-}
-function deleteStudent(id){
-	alert('삭제할 아이디: '+id);
-	location.href="${ctx}/member.do?action=delete&page=member_list&id="+id;
-}
-function detailStudent(id){
-	alert('디테일 아이디: '+id);
-	location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
-}
-function searchName(){
- 	var name =document.getElementById('searchName').value; 
- if(name!=""){
-	 alert('찾는 이름 : '+name);
-	 location.href="${ctx}/member.do?action=search&page=member_search&search="+name;
- }else{
-	 alert('찾을실 이름을 검색하여 주세요 !!!!');
- }
-	
-}
-</script>
+
 <jsp:include page="../common/footer.jsp"/>
 
 

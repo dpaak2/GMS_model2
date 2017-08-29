@@ -604,17 +604,23 @@ select count(*) as count from student;
  from (select rownum seq, t.*
  from( select * 
  from student
- where name like '%홍%'
+ where name like '%김유신%'
  order  by num DESC )t)t2
  where t2.seq between 1 and 5;
  
  select * from student where name like '%전%';
  
+ select t2.*  
+ from (select rownum seq,t.*
+ from (select *  from student 
+ where name like '전'  order by num DESC)t)t2 where t2.seq between 1 and 5;
+
+ /*count*/
+ select count(*)  from Student
+ where name like '%';
  
  
- 
- 
- 
+ SELECT COUNT(*) as student_count  FROM Student where name like '%';
  
  
  

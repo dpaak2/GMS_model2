@@ -89,6 +89,8 @@ public class MemberController extends HttpServlet {
 		case Action.LIST:
 			System.out.println("&&&&&&&&& Member controller list entered==========");
 			int count =Integer.parseInt(service.count(cmd));
+			//cmd.setColumn("name");
+			//cmd.setSearch(String.valueOf(map.get("search")));
 			pxy.setTheNumberOfRows(count);
 			System.out.println("카운트::::::" + count);
 			pxy.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
@@ -104,11 +106,15 @@ public class MemberController extends HttpServlet {
 		case Action.SEARCH:
 			System.out.println("controller members search 진입");
 			map = ParamsIterator.execute(request);
-			pxy.setTheNumberOfRows(Integer.parseInt(service.count(cmd)));
 			cmd = PageHandler.attr(pxy);
+			cmd.setPageNumber(request.getParameter("pageNumber"));
 			cmd.setColumn("name");
 			cmd.setSearch(String.valueOf(map.get("search")));
-			request.setAttribute("list", service.findByName(cmd));
+			pxy.setTheNumberOfRows(Integer.parseInt(service.count(cmd)));
+			cmd.setStartRow(PageHandler.attr(pxy).getStartRow());
+			cmd.setEndRow(PageHandler.attr(pxy).getEndRow());
+			pxy.setPageNumber(Integer.parseInt(cmd.getPageNumber()));
+			pxy.execute(BlockHandler.attr(pxy), service.findByName(cmd));
 			DispatcherSevlet.send(request, response);
 			break;
 		case Action.DELETE:

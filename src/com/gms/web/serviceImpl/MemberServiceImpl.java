@@ -79,6 +79,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<?> findByName(Command cmd) {
+		System.out.println("findByName:: "+cmd.getSearch()+"::");
 		return dao.selectByName(cmd);
 	}
 

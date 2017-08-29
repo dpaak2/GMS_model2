@@ -9,5 +9,6 @@ public class SearchCommand extends Command{
 		setPageNumber(pageNumber);
 		setColumn(column);
 		setSearch(search);
+		process();
 	}
 }

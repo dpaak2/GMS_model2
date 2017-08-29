@@ -32,5 +32,6 @@ public class SQL {
 			+ " from student where name like '%' || ? || '%' order by num DESC)t)t2 where t2.seq between 1 and 5";
 	
 	public static final String STUDENT_COUNT=String.format("SELECT COUNT(*) as student_count  FROM %s where name like ?",DB.TABLE_STUDENT);
+	public static final String STUDNET_FINDBYID=String.format("select * from %s where id like ?", DB.TABLE_STUDENT);
 
 }

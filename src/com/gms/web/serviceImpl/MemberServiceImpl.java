@@ -2,6 +2,7 @@ package com.gms.web.serviceImpl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.gms.web.DAO.MemberDAO;
 import com.gms.web.DAOImpl.MemberDAOImpl;
 import com.gms.web.command.Command;
@@ -33,7 +34,7 @@ public class MemberServiceImpl implements MemberService {
 		Map<String,Object> map= new HashMap<>();
 		Command cmd= new Command();
 		cmd.setSearch(bean.getId());
-	    MemberBean m = findById(cmd);
+	    MemberBean m = dao.login(cmd);
 	    String page=(m!=null)?(bean.getPw().equals(m.getPw()))?"main":"login_fail":"join";
 	    map.put("page", page);
 	    map.put("user", m);
@@ -71,10 +72,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberBean findById(Command cmd) {
-		MemberBean member = new MemberBean();
-		member = dao.selectById(cmd);
-		return member;
+	public StudentBean findById(Command cmd) {
+		StudentBean stu = new StudentBean();
+		stu = dao.selectById(cmd);
+		return stu;
 	}
 
 	@Override
@@ -89,7 +90,7 @@ public class MemberServiceImpl implements MemberService {
 		// findById(bean.getPw()).setPw(bean.getPw());
 		Command cmd=new Command();
 		cmd.setSearch(bean.getId());
-		MemberBean mem = findById(cmd);
+		MemberBean mem =dao.login(cmd);
 		if (!bean.getName().equals("")) {
 			mem.setName(bean.getName());
 		}

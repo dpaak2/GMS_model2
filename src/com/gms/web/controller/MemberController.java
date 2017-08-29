@@ -98,9 +98,11 @@ public class MemberController extends HttpServlet {
 			DispatcherSevlet.send(request, response);
 			break;
 		case Action.UPDATE:
-			cmd.setSearch(request.getParameter("id"));
 			System.out.println("controller members update 진입");
-			service.modifiyProfile(service.findById(cmd));
+			String id =request.getParameter("id");
+			System.out.println("update id controller=="+id);
+			cmd.setSearch(id);
+			//service.modifiyProfile(service.login(member));
 			DispatcherSevlet.send(request, response);
 			break;
 		case Action.SEARCH:

@@ -70,7 +70,7 @@ function list(dir,page,pageNumber){
 function mainLoad(){
 	var u1=$("#main_ul_stu");
 	var u2=$("#main_ul_grade");
-	var u3=$("main_ul_board");
+	var u3=$("#main_ul_board");
 	u1.setAttribute("class","list-group");
 	u2.setAttribute("class","list-group");
 	u3.setAttribute("class","list-group");

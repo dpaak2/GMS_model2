@@ -44,44 +44,5 @@
 </fieldset>
 </form>
 </div>
-<script>
 
-	function memberAdd(){
-		var member_id =document.getElementById('member_id').value;
-		var password = document.getElementById('password').value;
-		var birth = document.getElementById('birth').value;
-		var name = document.getElementById('name').value;
-		var email = document.getElementById('email').value;
-		
-		
-		if(member_id===""){
-			alert('id는 필수값 잆니다');
-			return false;
-		}
-		if(password===""){
-			alert('password는 필수값입니다!!!');
-			return false;
-		}
-		if(birth===""){
-			alert('생일은 필수값입니다!');
-			return false;
-		}
-		if(name===""){
-			alert('이름은 필수값입니다!');
-			return false;
-		}
-		if(email===""){
-			alert('email은 필수값입니다!');
-			return false;
-		}
-		
-		var form = document.getElementById('join_form');
-		form.setAttribute('action','${ctx}/member.do');
-		form.setAttribute('method','post');
-		/* get방식은 이렇게 할필요가 없다 , post방식에서만 이렇게 쓴다 */
-		form.submit();
-		return true;
-		/*return true는 생략 가능하다-> procedure|| function은 return 값을 가지고 잇는것 이다*/
-	}
-</script>
 <jsp:include page="../common/footer.jsp"/>

@@ -6,31 +6,62 @@
             <div class="row">
                 <div class="col-md-3 col-xs-12 col-sm-6 col-lg-3">
                   <div class="thumbnail text-center photo_view_postion_b" >
-                    <img src="${img}/song.jpg" alt="stack photo" class="img">
+                    <img id="profileBtn" src="${img}/song.jpg" alt="stack photo" class="img">
                   </div>
                 </div>
                 <div class="col-md-9 col-xs-12 col-sm-6 col-lg-9">
                     <div class="" style="border-bottom:1px solid black">
-                      <span style="font-size: 50px;">${requestScope.student.name}</span> 
+                      <span style="font-size: 50px">${requestScope.student.name}</span>
                       &nbsp;&nbsp;&nbsp;&nbsp;
-                      <button id="updateBtn" onclick="moveTo('member','member_update')">정보수정</button>
+                      <button onclick="moveTo('member','member_update')">정보수정</button>
+          
                     </div>
                       <hr>
-                    <div class="col-md-8">  
-                    <ul class=" details">
-                      <li><p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>${requestScope.student.phone}</p></li>
-                      <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>${requestScope.student.email}</p></li>
-                      <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span>Hyderabad</p></li>
-                      <li><p><span class="glyphicon glyphicon-credit-card one" style="width:50px;"></span>66330007</p></li>
+                    <div class="col-md-6">  
+                    <ul class=" details"> 
+                      <li>
+                      	<p>
+                      		<span class="glyphicon glyphicon-credit-card one" style="width:50px;">
+                      		</span>
+                      			# ${requestScope.student.num}
+                      	 </p>
+                      </li>
+                      <li> <!-- num, id, name, ssn, regdate, phone, email, title -->
+                      	<p>
+                      		<span class="glyphicon glyphicon-envelope one" style="width:50px;">
+                      		</span>
+                      			${requestScope.student.id}
+                      	  </p>
+                      </li>
+                      <li><p><span class="glyphicon glyphicon-bold" style="width:50px;"></span>
+                      			${requestScope.student.ssn}
+                      	  </p>
+                      </li>
+                      <li>  <p>
+                      			<span class="glyphicon glyphicon-earphone one" style="width:50px;">
+                      			</span>
+                      			${requestScope.student.phone}
+                      		</p>
+                      </li>
                     </ul>
                     </div>
-                    <div class="col-md-4">  
-                      <div class="col-sm-5 col-xs-6 tital " >Birthday:</div><div class="col-sm-7 col-xs-6 ">2018/2/15</div>
-                      <div class="clearfix"></div><div class="bot-border"></div>
-                      <div class="col-sm-5 col-xs-6 tital " >Gender:</div><div class="col-sm-7 col-xs-6 ">Prasad</div>
-                      <div class="clearfix"></div><div class="bot-border"></div>
-                      <div class="col-sm-5 col-xs-6 tital " >Ethnicity:</div><div class="col-sm-7 col-xs-6 ">sdfsdfsdfsdfsdf</div>
-                      <div class="clearfix"></div><div class="bot-border"></div>
+                    <div class="col-md-6">  
+                      <p>
+                      	<span class="glyphicon glyphicon-calendar one" style="width:50px;"></span>
+                      	${requestScope.student.regdate}
+                      </p>
+                      <p>
+                      	<span class="glyphicon glyphicon-blackboard" style="width:50px;"></span>
+                      	${requestScope.student.title}
+                      </p>
+                      <%-- <div class="col-sm-5 col-xs-6 tital " >Gender:</div>
+                      <div class="col-sm-7 col-xs-6 ">${requestScope.student.ssn}</div>
+                      <div class="clearfix"></div>
+                      <div class="bot-border"></div>
+                      <div class="col-sm-5 col-xs-6 tital " >수강과목:</div>
+                      <div class="col-sm-7 col-xs-6 ">${requestScope.student.title}</div>
+                      <div class="clearfix"></div>
+                      <div class="bot-border"></div> --%>
                     </div>
                 </div>
               </div>
@@ -38,7 +69,9 @@
                 <div class="form-group row">
                   <div class="col-md-12">
                   <div class="form-group" style="border-bottom:1px solid black">
-                      <h2>CONTACT INFO</h2>
+                       <h2>
+                      <span class="glyphicon glyphicon-list-alt one" style="width:50px;"></span>
+                     성적 목록</h2>
                   </div>
                   </div>
                 </div>
@@ -80,20 +113,12 @@
               
           </div>
       </div>
- <script>
- function test(){
-	 //id= # getElementByid   $is Lo
-	 document.querySelector('#updateBtn').onclick=studentInfo;
- }
-function studentInfo(){
-	var id='id',
-		id_val='${requestScope.student.id}',		
-		name='name',
-		name_val='${requestScope.student.name}';
-		email='email',
-		email_val='${requestScope.student.email}';
-		sessionStorage.setItem(id,id_val);
-		sessionStorage.setItem(name,name_val);
-		sessionStorage.setItem(email,email_val);
-}
- </script>
+
+      
+      
+      
+      
+      
+      
+      
+      

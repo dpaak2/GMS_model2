@@ -68,9 +68,9 @@ function list(dir,page,pageNumber){
 }
 
 function mainLoad(){
-	var u1=document.getElementById("main_ul_stu");
-	var u2=document.getElementById("main_ul_grade");
-	var u3=document.getElementById("main_ul_board");
+	var u1=$("#main_ul_stu");
+	var u2=$("#main_ul_grade");
+	var u3=$("main_ul_board");
 	u1.setAttribute("class","list-group");
 	u2.setAttribute("class","list-group");
 	u3.setAttribute("class","list-group");
@@ -158,4 +158,60 @@ function searchName(){
  }
 	
 }
+/**********************************************detail??****************************************/
+function studentInfo(){
+	  var id='id',
+	      id_val='${requestScope.student.id}',
+	      name='name',
+	      name_val='${requestScope.student.name}',
+	      email='email',
+	      email_val='${requestScope.student.email}'
+	      ;
+	  sessionStorage.setItem(id,id_val);    
+	  sessionStorage.setItem(name,name_val);    
+	  sessionStorage.setItem(email,email_val);    
+}
+window.addEventListener('load',test,false);
+
+/*******************************************************add*/
+function memberAdd(){
+	var member_id =document.getElementById('member_id').value;
+	var password = document.getElementById('password').value;
+	var birth = document.getElementById('birth').value;
+	var name = document.getElementById('name').value;
+	var email = document.getElementById('email').value;
+	
+	
+	if(member_id===""){
+		alert('id는 필수값 잆니다');
+		return false;
+	}
+	if(password===""){
+		alert('password는 필수값입니다!!!');
+		return false;
+	}
+	if(birth===""){
+		alert('생일은 필수값입니다!');
+		return false;
+	}
+	if(name===""){
+		alert('이름은 필수값입니다!');
+		return false;
+	}
+	if(email===""){
+		alert('email은 필수값입니다!');
+		return false;
+	}
+	
+	var form = document.getElementById('join_form');
+	form.setAttribute('action','${ctx}/member.do');
+	form.setAttribute('method','post');
+	/* get방식은 이렇게 할필요가 없다 , post방식에서만 이렇게 쓴다 */
+	form.submit();
+	return true;
+	/*return true는 생략 가능하다-> procedure|| function은 return 값을 가지고 잇는것 이다*/
+}
+
+
+
 </script>
